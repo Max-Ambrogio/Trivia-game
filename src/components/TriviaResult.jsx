@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import TriviaSearchform from "./TriviaSearchform";
+import TriviaQuestion from "./TriviaQuestion";
 // import styled from "styled-components"
 // const Questions = styled.div`
 //     padding: 2%;
@@ -18,12 +19,10 @@ import TriviaSearchform from "./TriviaSearchform";
 
 // `
 
-const USER_ANSWERS_KEY = "userAnswers"
 
 export default function TriviaResults({quizes}){
 
     const [values, setValues] = useState({
-       
     })
 
     const handleChange = (evt) => {
@@ -38,7 +37,7 @@ export default function TriviaResults({quizes}){
         // props.onSubmit(values)
 
 
-        localStorage.setItem(USER_ANSWERS_KEY, JSON.stringify(values))
+      
     }
 
     return(
@@ -46,27 +45,7 @@ export default function TriviaResults({quizes}){
             {quizes.map((quiz, index) => {
                 return(
                     <div key={`${index}`} className="grid-item">
-                        <>
-                            <h2>{quiz.question}</h2>
-                            <form onSubmit={handleSubmit} className="answers">
-                                <div className="answer">
-                                    <input id="answer-1" type="radio" name="answers" value={quiz.incorrect_answers[0]}/>
-                                    <label for="answer-1">{quiz.incorrect_answers[0]}</label>
-                                </div>
-                                <div className="answer">
-                                    <input id="answer-2" type="radio" name="answers" value={quiz.incorrect_answers[1]}/>
-                                    <label for="answer-1">{quiz.incorrect_answers[1]}</label>
-                                </div>
-                                <div className="answer">
-                                    <input id="answer-3" type="radio" name="answers" value={quiz.incorrect_answers[2]}/>
-                                    <label for="answer-1">{quiz.incorrect_answers[2]}</label>
-                                </div>
-                                <div className="answer">
-                                    <input id="answer-4" type="radio" name="answers" value={quiz.correct_answer}/>
-                                    <label for="answer-1">{quiz.correct_answer}</label>
-                                </div>
-                            </form>
-                        </>
+                        <TriviaQuestion quiz={quiz} />
                     </div>
                 )
             })}
@@ -76,5 +55,5 @@ export default function TriviaResults({quizes}){
 }
 
 TriviaResults.defaultProps = {
-    quiz: []
+    quizes: []
 }
