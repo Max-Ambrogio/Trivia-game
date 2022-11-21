@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef,  useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { API_KEY } from "../constants";
 import TriviaResults from "../components/TriviaResult";
@@ -11,8 +11,48 @@ export default function Search(props){
     const [searchParams, setSearchParams] = useSearchParams()
     console.log('SearchParams', searchParams)
     const [quizes, setQuizes] = useState([])
+    const [isSearching, setIsSearching] = useState(false);
+    const [error, setError] = useState('')
 
-       
+    const TIMER_LENGTH = 5
+
+
+    const timerRef = useRef(null)
+    const [timeLeft, setTimeLeft] = useState(TIMER_LENGTH);
+    const [timerActive, setTimerActive] = useState(false);
+
+    const stopTimer = () => {
+        if(timerRef.current) { clearInterval(timerRef.current) }
+        setTimerActive(false);
+    }
+
+    const updatetimer = () => {
+        console.log("start Time", timeLeft, timerActive)
+
+        setTimeLeft((prevTimeleft) => {
+            const newTimeLeft =  prevTimeleft - 1;
+            if(newTimeLeft < 0 ) {
+                stopTimer()
+                setError('Time is up')
+                return;
+            }
+            return newTimeLeft;
+        })
+    }
+
+    const startTimer = () => {
+        setTimerActive(true);
+        if(timerRef.current) { clearInterval(timerRef.current) }
+        const timer = setInterval(updatetimer, 1000)
+        timerRef.current = timer
+    }
+
+    const resetTimer = () => {
+        stopTimer()
+        setTimeLeft(TIMER_LENGTH)
+        setError("")
+    }
+
    const ctg = searchParams.get('category')
    const D = searchParams.get('difficulty')
 
@@ -39,12 +79,20 @@ export default function Search(props){
    const findQuizes = (ctg, D) => {
         
         console.log('searching for articles matching: ',  ctg, D)
-        // fetch(`${API_KEY}amount=10&category=9&difficulty=hard&type=multiple`)
+        setIsSearching(true);
+
         fetch(`${API_KEY}amount=10&category=${ctg}&difficulty=${D}&type=multiple`)
         .then((response) => response.json())
         .then((data) => {
             console.log('Questions', data);
-            setQuizes(data.results)
+            setQuizes(data.results);
+            if(data.results.length == 0){
+                setError("No results found");
+            } else {
+                setQuizes([]);
+                setError('');
+            }
+            setIsSearching(false);
             localStorage.setItem(USER_ANSWERS_KEY, JSON.stringify(data.results))
         })
     }
@@ -56,8 +104,20 @@ export default function Search(props){
 
     return(
         <>
-            <TriviaSearchform category={ctg} difficulty={D} onSubmit={handleSearch} />
+            <TriviaSearchform isSearching={isSearching} category={ctg} difficulty={D} onSubmit={handleSearch} />
+            <p>
+                Time Left: {timeLeft}
+            </p>
+            <button onClick={startTimer}>Start</button>
+            <button onClick={timerActive ? stopTimer : startTimer}>
+                {timerActive ? 'Pause' : 'Resume' }
+            </button>
+            <button onClick={resetTimer}>Reset</button>
+            <hr />
             <TriviaResults quizes={quizes} />
+            {error && <p>Error! {error}</p>}
+
+
         </>
     )
 }

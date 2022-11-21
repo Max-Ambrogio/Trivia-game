@@ -15,6 +15,8 @@ function App() {
       <h1>Trivia Quiz</h1>
         <div className='options'>
         
+        <h2>Select Category &amp; Difficulty</h2>
+            
             <Routes>
               <Route path='search' element={<Search />} />
             </Routes>

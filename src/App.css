@@ -37,6 +37,7 @@
   }
 }
 
+
 .select select{
   border: 1px solid rgb(244, 135, 244);
   background-color: #282c34;
@@ -56,14 +57,17 @@
 }
 
 .grid-item{
-  background-color: #bd81fddc;
+  background-color: #bd81fd;
   box-shadow: 2px 1px 10px black;
   padding: 10px;
   border-radius: 20px;
-  margin: 20px 10px;
+  margin: 40px 10px;
   /* text-align: center; */
   display: flex;
-  flex-direction: column;
+  /* flex-direction: row; */
+  /* position: absolute; */
+  width: 80%;
+  height: 400px;
 }
 
 .grid-item h2{

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import TriviaSearchform from "./TriviaSearchform";
 import TriviaQuestion from "./TriviaQuestion";
+// import ReactCSSTransitionGroup from 'react-transition-group';
 // import styled from "styled-components"
 // const Questions = styled.div`
 //     padding: 2%;
@@ -25,6 +26,20 @@ export default function TriviaResults({quizes}){
     const [values, setValues] = useState({
     })
 
+    const [countCorrectAnswer, setCountCorrectAnswer] = useState();
+    const [currentQuestion, setCurrentQuestion] = useState(1)
+    const allQuestions = [];
+
+
+    
+
+
+    const handleGuess = (isCorrect) => {
+
+
+        setCountCorrectAnswer(countCorrectAnswer + 1)
+    }
+
     const handleChange = (evt) => {
         setValues({
             ...values,
@@ -35,22 +50,21 @@ export default function TriviaResults({quizes}){
     const handleSubmit = (evt) => {
         evt.preventDefault()
         // props.onSubmit(values)
-
-
-      
     }
 
     return(
-        <div className="grid">
-            {quizes.map((quiz, index) => {
-                return(
-                    <div key={`${index}`} className="grid-item">
-                        <TriviaQuestion quiz={quiz} />
-                    </div>
-                )
-            })}
-            <button>Submit</button>
-        </div>
+        <ReactCSSTransitionGroup>
+            <div className="grid">
+                {quizes.map((quiz, index) => {
+                    return(
+                        <div key={`${index}`} className="grid-item">
+                            <TriviaQuestion quiz={quiz} onGuess={handleGuess} />
+                        </div>
+                    )
+                })}
+
+            </div>
+        </ReactCSSTransitionGroup>
     )
 }
 

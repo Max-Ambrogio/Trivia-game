@@ -19,7 +19,7 @@ export default function TriviaSearchform(props){
     }
 
     console.log('values', values)
-
+    const isSearching = props.isSearching
     return(
         <form className="select" onSubmit={handleSubmit}>
             <select onChange={handleChange} name="category" value={values.category}> 
@@ -54,6 +54,7 @@ export default function TriviaSearchform(props){
                 <option value={"hard"}>hard</option>
             </select>
             <button onSubmit={handleSubmit} type="submit">Submit</button>
+            {isSearching && <span>Searching.....</span>}
         </form>
     )
 }
