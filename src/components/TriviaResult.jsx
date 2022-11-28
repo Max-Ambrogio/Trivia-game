@@ -1,25 +1,6 @@
 import React, {useState} from "react";
 import TriviaSearchform from "./TriviaSearchform";
 import TriviaQuestion from "./TriviaQuestion";
-// import ReactCSSTransitionGroup from 'react-transition-group';
-// import styled from "styled-components"
-// const Questions = styled.div`
-//     padding: 2%;
-//     background-color:#4444;
-//     border-radius: 15px;
-
-
-//     > h2{
-//         color:#76499;
-
-//     }
-
-//     > input{
-//         padding: 10px;
-//     }
-
-// `
-
 
 export default function TriviaResults({quizes}){
 
@@ -27,18 +8,15 @@ export default function TriviaResults({quizes}){
     })
 
     const [countCorrectAnswer, setCountCorrectAnswer] = useState();
-    const [currentQuestion, setCurrentQuestion] = useState(1)
-    const allQuestions = [];
+    const [currentQuestion, setCurrentQuestion] = useState(1);
+    const allQuestions = quizes;
+    console.log(allQuestions)
+
+    // const handleGuess = (isCorrect) => {
 
 
-    
-
-
-    const handleGuess = (isCorrect) => {
-
-
-        setCountCorrectAnswer(countCorrectAnswer + 1)
-    }
+    //     setCountCorrectAnswer(countCorrectAnswer + 1)
+    // }
 
     const handleChange = (evt) => {
         setValues({
@@ -47,24 +25,52 @@ export default function TriviaResults({quizes}){
         })
     }
 
+    const isCorrect = () => {
+        // setIsAnswerCorrect(true)
+        console.log('green')
+        
+    };
+    const isNotCorrect = () => {
+        // setIsAnswerCorrect(true)
+        console.log('red')
+    };
+
+    const handleGuess = (userAnswer) => {
+        // onGuess(userAnswer === quiz.correct_answer)
+        if(userAnswer === quiz.correct_answer){
+            console.log('correct', userAnswer)
+            // isCorrect();
+            // setScore(score + 1);
+            // console.log(score)
+        } else {
+            // console.log('incorrect, correct answer = ' , quiz.correct_answer)
+            // isNotCorrect();
+        }  
+        
+    }
+
+    
+    const quiz = allQuestions[currentQuestion];
+
     const handleSubmit = (evt) => {
         evt.preventDefault()
         // props.onSubmit(values)
     }
 
     return(
-        <ReactCSSTransitionGroup>
+        // <ReactCSSTransitionGroup>
             <div className="grid">
-                {quizes.map((quiz, index) => {
-                    return(
-                        <div key={`${index}`} className="grid-item">
-                            <TriviaQuestion quiz={quiz} onGuess={handleGuess} />
+                {/* {quizes.map((quiz, index) => { */}
+                    {/* return( */}
+                        <h2> Question {currentQuestion}</h2>
+                        <div key={currentQuestion} className="grid-item">
+                            <TriviaQuestion quiz={quiz} onChange={handleGuess} />
+                            <button className="advance" onClick={() => setCurrentQuestion(currentQuestion + 1)}> Next </button>
                         </div>
-                    )
-                })}
-
+                    {/* ) */}
+                {/* })} */}
             </div>
-        </ReactCSSTransitionGroup>
+    //     </ReactCSSTransitionGroup>
     )
 }
 

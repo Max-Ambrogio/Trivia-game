@@ -1,6 +1,11 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function TriviaSearchform(props){
+
+    const navigate = useNavigate();
+
     const [values, setValues] = useState({
         category: props.category || "9",
         difficulty: props.difficulty || 'easy',
@@ -16,6 +21,7 @@ export default function TriviaSearchform(props){
     const handleSubmit = (evt) => {
         evt.preventDefault()
         props.onSubmit(values)
+        navigate('/questions')
     }
 
     console.log('values', values)

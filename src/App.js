@@ -5,20 +5,21 @@ import{
   Routes,
   Route,
 } from 'react-router-dom';
-
 import Search from './pages/Search';
+import FinalScreen from './pages/FinalScreen';
+import Questions from './pages/Questions';
+
 
 function App() {
   return ( 
   <BrowserRouter>
     <div className='app'>
       <h1>Trivia Quiz</h1>
-        <div className='options'>
-        
-        <h2>Select Category &amp; Difficulty</h2>
-            
+        <div className='options'>          
             <Routes>
-              <Route path='search' element={<Search />} />
+              <Route path='/' element={<Search />} />
+              <Route path='/questions' element={<Questions />} />
+              <Route path='/score' element={<FinalScreen />} />
             </Routes>
         </div>
     </div>

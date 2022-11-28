@@ -14,47 +14,8 @@ export default function Search(props){
     const [isSearching, setIsSearching] = useState(false);
     const [error, setError] = useState('')
 
-    const TIMER_LENGTH = 5
-
-
-    const timerRef = useRef(null)
-    const [timeLeft, setTimeLeft] = useState(TIMER_LENGTH);
-    const [timerActive, setTimerActive] = useState(false);
-
-    const stopTimer = () => {
-        if(timerRef.current) { clearInterval(timerRef.current) }
-        setTimerActive(false);
-    }
-
-    const updatetimer = () => {
-        console.log("start Time", timeLeft, timerActive)
-
-        setTimeLeft((prevTimeleft) => {
-            const newTimeLeft =  prevTimeleft - 1;
-            if(newTimeLeft < 0 ) {
-                stopTimer()
-                setError('Time is up')
-                return;
-            }
-            return newTimeLeft;
-        })
-    }
-
-    const startTimer = () => {
-        setTimerActive(true);
-        if(timerRef.current) { clearInterval(timerRef.current) }
-        const timer = setInterval(updatetimer, 1000)
-        timerRef.current = timer
-    }
-
-    const resetTimer = () => {
-        stopTimer()
-        setTimeLeft(TIMER_LENGTH)
-        setError("")
-    }
-
-   const ctg = searchParams.get('category')
-   const D = searchParams.get('difficulty')
+    const ctg = searchParams.get('category')
+    const D = searchParams.get('difficulty')
 
     useEffect(() => {
         const existingAnswers = localStorage.getItem(USER_ANSWERS_KEY)
@@ -70,13 +31,7 @@ export default function Search(props){
         
     },[])
 
-
-    //   localStorage.setItem(USER_ANSWERS_KEY, JSON.stringify(values))
-
-    // https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple
-   // ${API_KEY}amount=10&category=${ctg}&difficulty=${dfc}&type=multiple
-   
-   const findQuizes = (ctg, D) => {
+    const findQuizes = (ctg, D) => {
         
         console.log('searching for articles matching: ',  ctg, D)
         setIsSearching(true);
@@ -105,16 +60,7 @@ export default function Search(props){
     return(
         <>
             <TriviaSearchform isSearching={isSearching} category={ctg} difficulty={D} onSubmit={handleSearch} />
-            <p>
-                Time Left: {timeLeft}
-            </p>
-            <button onClick={startTimer}>Start</button>
-            <button onClick={timerActive ? stopTimer : startTimer}>
-                {timerActive ? 'Pause' : 'Resume' }
-            </button>
-            <button onClick={resetTimer}>Reset</button>
-            <hr />
-            <TriviaResults quizes={quizes} />
+
             {error && <p>Error! {error}</p>}
 
 
