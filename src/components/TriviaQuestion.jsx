@@ -10,6 +10,8 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
     const totalScore = 10;
     const scoreContext = useContext(ScoreContext)
 
+    const [attemptedAnswer, setAttemptedAnswer] = useState([false, false, false, false]);
+
     const allAnswers = useMemo( () => shuffle([
         quiz.correct_answer, ...quiz.incorrect_answers 
     ]), [quiz.question])
@@ -23,7 +25,9 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
         console.log('red')
     };
 
-    const handleGuess = (userAnswer) => {
+    const handleGuess = (userAnswer, index) => {
+        attemptedAnswer[index]= true;
+        setAttemptedAnswer([...attemptedAnswer])
         if(userAnswer === quiz.correct_answer){
             console.log('correct', userAnswer)
             isCorrect();
@@ -33,14 +37,18 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
         }   
     }
 
+    const specialCharacters = (str) => {
+        return str.replaceAll('&quot;', "''").replaceAll('&#039;', "'");
+    }
+
     return(
         <>
             <div className='card'>
-                <h2>{decodeURI(quiz.question)}</h2>
+                <h2>{specialCharacters(quiz.question)}</h2>
                 <form onSubmit={handleSubmit} className="answers">
                     {allAnswers.map((answer, index) => (
-                        <div key={`${index}`} className="answer">
-                            <input id={`${index}`} type="radio" name="answers" value={answer} onChange={() => handleGuess(answer)}/>
+                        <div key={`${index}`} className={"answer "  + (attemptedAnswer[index] ? 'attempted' : 'not-attempted')}>
+                            <input id={`${index}`} type="radio" name="answers" value={answer} onChange={(index) => handleGuess(answer, index)}/>
                             <label htmlFor="answer">{answer}</label>
                             
                         </div>

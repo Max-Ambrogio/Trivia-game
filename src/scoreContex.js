@@ -5,5 +5,5 @@ const ScoreContext = React.createContext({
     setScore: () => {},
 })
 
-export const ScoreProvider = ScoreContext.ScoreProvider
+export const ScoreProvider = ScoreContext.Provider
 export default ScoreContext

@@ -10,7 +10,7 @@ export default function TriviaResults({quizes}){
 
     const [countCorrectAnswer, setCountCorrectAnswer] = useState();
     const [currentQuestion, setCurrentQuestion] = useState(1);
-    const scoreContex = useContext(scoreContex);
+    const scoreContext = useContext(ScoreContext);
 
     const allQuestions = quizes;
     console.log(allQuestions)
@@ -22,18 +22,6 @@ export default function TriviaResults({quizes}){
             [evt.target.name]: evt.target.value
         })
     }
-
-    const isCorrect = () => {
-        // setIsAnswerCorrect(true)
-        // setScore(score + 1);
-        // console.log(score)
-        console.log('green')
-        
-    };
-    const isNotCorrect = () => {
-        // setIsAnswerCorrect(true)
-        console.log('red')
-    };
 
     const handleGuess = (userAnswer) => {
         // onGuess(userAnswer === quiz.correct_answer)
@@ -77,7 +65,7 @@ export default function TriviaResults({quizes}){
                     <TriviaQuestion quiz={quiz} onChange={handleGuess} onScoreChange={onScoreChange} />
                     <button className="advance" onClick={nextQuestion}> Next </button>
                 </div>
-                <div className="score">Score: {ScoreContext.score}</div>
+                <div className="score">Score: {scoreContext.score}</div>
             </div>
     //     </ReactCSSTransitionGroup>
     )

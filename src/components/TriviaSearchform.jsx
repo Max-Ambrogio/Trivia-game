@@ -28,6 +28,7 @@ export default function TriviaSearchform(props){
     const isSearching = props.isSearching
     return(
         <form className="select" onSubmit={handleSubmit}>
+            <label htmlFor="select">Select Category</label>
             <select onChange={handleChange} name="category" value={values.category}> 
                 <option value="9">General Knowledge</option>
                 <option value="10">Entertainment: Books</option>
@@ -54,6 +55,7 @@ export default function TriviaSearchform(props){
                 <option value="31">Entertainemnt: Japanese Animae & Manga</option>
                 <option value="32">Entertainment: Cartoon & Animation</option>
             </select>
+            <label htmlFor="select">Select Difficulty</label>
             <select onChange={handleChange} name="difficulty" value={values.difficulty}>
                 <option value={"easy"}>easy</option>
                 <option value={"medium"}>medium</option>

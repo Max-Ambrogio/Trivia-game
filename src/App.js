@@ -15,22 +15,22 @@ import { ScoreProvider } from './scoreContex';
 
 function App() {
   const [score, setScore] = useState(0);
-  const value = {score, setScore}
+  const value = { score, setScore }
 
   return ( 
-  <BrowserRouter>
-    <ScoreProvider value={value}>      
-      <div className='app'>
-          <h1>Trivia Quiz</h1>
-          <div className='options'>          
-              <Routes>
-                <Route path='/' element={<Search />} />
-                <Route path='/questions' element={<Questions />} />
-                <Route path='/score' element={<FinalScreen />} />
-              </Routes>
-          </div>
-      </div>
-    </ScoreProvider>
+    <BrowserRouter>
+      <ScoreProvider value={value}>      
+        <div className='app'>
+            <h1>Trivia Quiz</h1>
+            <div className='options'>          
+                <Routes>
+                  <Route path='/' element={<Search />} />
+                  <Route path='/questions' element={<Questions />} />
+                  <Route path='/score' element={<FinalScreen />} />
+                </Routes>
+            </div>
+        </div>
+      </ScoreProvider>
   </BrowserRouter>
   );
 }

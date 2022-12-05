@@ -40,6 +40,7 @@ export default function Questions(props){
     const findQuizes = (ctg, D) => {
          
          console.log('searching for articles matching: ',  ctg, D)
+         setQuizes(null)
          setIsSearching(true);
  
          fetch(`${API_KEY}amount=10&category=${ctg}&difficulty=${D}&type=multiple`)
@@ -66,7 +67,7 @@ export default function Questions(props){
     return(
         <>
             <div>
-                <TriviaResults quizes={quizes} />
+                {quizes.length ? <TriviaResults quizes={quizes}/> : 'loading' }
                 {error && <p>Error! {error}</p>}
             </div>
         </>
