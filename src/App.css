@@ -88,7 +88,7 @@ body {
 
 .advance{
   position: absolute;
-  bottom: 10%;
+  bottom: 7%;
   left: 50%;
   padding: 5px 20px;
   transform: translate(-50%, -50%);
@@ -159,7 +159,7 @@ body {
   /* position: absolute; */
   width: 70%;
 
-  height: 400px;
+  height: 500px;
 }
 
 .grid-item h2{
@@ -194,6 +194,21 @@ body {
   /* border: 10px; */
 }
 
+.answer.tried.correct{
+  background: #23d5ab;
+  box-shadow:
+  4px 4px 4px 0px #1ebd98 inset,
+  -4px -4px 4px 0px #15b48f inset;
+  animation: correct 0.5s ease;
+}
+.answer.tried.incorrect{
+  background: #d52323;
+  box-shadow:
+  4px 4px 4px 0px #d52323 inset,
+  -4px -4px 4px 0px #d52323 inset;
+  animation: incorrect 0.5s ease;
+}
+
 .answer:hover{
   transform: scale(1.1);
   box-shadow:
@@ -207,6 +222,37 @@ body {
 
 .answer input[type="radio"]{
   width: 100%;
-  opacity: 0;
-  position: fixed;
+  opacity: 1;
+  /* position: fixed; */
+}
+
+@keyframes correct {
+  0% {
+    transform:rotate(0deg) scale(1);
+  } 
+  40% {
+    transform:rotate(5deg) scale(1.5);
+
+  }
+  60% {
+    transform:rotate(-5deg) scale(1.5);
+  }
+  100% {
+    transform:rotate(0deg) scale(1);
+  }
+}
+@keyframes incorrect {
+  0% {
+    transform:translateX(0px);
+  } 
+  40% {
+    transform:translateX(10px);
+
+  }
+  60% {
+    transform:translateX(-10px);
+  }
+  100% {
+    transform:translateX(0px);
+  }
 }

@@ -15,7 +15,7 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
     const allAnswers = useMemo( () => shuffle([
         quiz.correct_answer, ...quiz.incorrect_answers 
     ]), [quiz.question])
-
+                                                                                                                                                                   
     const isCorrect = () => {
         console.log('green')
         scoreContext.setScore(scoreContext.score + 1)
@@ -26,8 +26,9 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
     };
 
     const handleGuess = (userAnswer, index) => {
-        attemptedAnswer[index]= true;
+        attemptedAnswer[index] = true;
         setAttemptedAnswer([...attemptedAnswer])
+        console.log(attemptedAnswer)
         if(userAnswer === quiz.correct_answer){
             console.log('correct', userAnswer)
             isCorrect();
@@ -47,10 +48,12 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
                 <h2>{specialCharacters(quiz.question)}</h2>
                 <form onSubmit={handleSubmit} className="answers">
                     {allAnswers.map((answer, index) => (
-                        <div key={`${index}`} className={"answer "  + (attemptedAnswer[index] ? 'attempted' : 'not-attempted')}>
-                            <input id={`${index}`} type="radio" name="answers" value={answer} onChange={(index) => handleGuess(answer, index)}/>
+                        <div
+                         key={`${index}`} 
+                         className={'answer ' + (attemptedAnswer[index] ? 'tried' : 'not-tried') + " " + (quiz.correct_answer === answer ? 'correct' : 'incorrect')}>
+                        
+                            <input id={`${index}`} type="radio" name="answers" value={answer} onChange={() => handleGuess(answer, index)}/>
                             <label htmlFor="answer">{answer}</label>
-                            
                         </div>
                     ))}
                 </form>
