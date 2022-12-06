@@ -4,6 +4,7 @@ import ScoreContext from "../scoreContex";
 
 export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreChange}){
 
+    
     const [correctAnswer, setCorrectAnswer] = useState();
     const [selectedAnswer, setSelectedAnswer] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);

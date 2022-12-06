@@ -3,8 +3,13 @@ import TriviaSearchform from "./TriviaSearchform";
 import TriviaQuestion from "./TriviaQuestion";
 import ScoreContext from "../scoreContex";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function TriviaResults({quizes}){
+
+    const navigate = useNavigate();
+
     const [values, setValues] = useState({})
     const [scoreboard, setScoreboard] = useState(0);
 
@@ -27,9 +32,6 @@ export default function TriviaResults({quizes}){
         // onGuess(userAnswer === quiz.correct_answer)
         if(userAnswer === quiz.correct_answer){
             console.log('correct', userAnswer)
-            // isCorrect();
-            // setScore(score + 1);
-            // console.log(score)
         } else {
             // console.log('incorrect, correct answer = ' , quiz.correct_answer)
             // isNotCorrect();
@@ -45,7 +47,12 @@ export default function TriviaResults({quizes}){
         setCurrentQuestion(currentQuestion + 1)
         if(currentQuestion >= 0){
             //final screen
-            console.log('no more questions')
+            console.log( currentQuestion, 'no more questions')
+        }
+        if(currentQuestion === 9){
+            console.log(currentQuestion, 'finalscreen')
+            navigate('/score')
+
         }
     }
 
