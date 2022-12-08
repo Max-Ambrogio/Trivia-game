@@ -8,7 +8,7 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
     const [correctAnswer, setCorrectAnswer] = useState();
     const [selectedAnswer, setSelectedAnswer] = useState();
     const [questionIndex, setQuestionIndex] = useState(0);
-    const totalScore = 10;
+    const totalScore = 9;
     const scoreContext = useContext(ScoreContext)
 
     const [attemptedAnswer, setAttemptedAnswer] = useState([false, false, false, false]);
@@ -40,7 +40,7 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
     }
 
     const specialCharacters = (str) => {
-        return str.replaceAll('&quot;', "''").replaceAll('&#039;', "'");
+        return str.replaceAll('&quot;', "''").replaceAll('&#039;', "'").replaceAll('&Eacute;', 'É' );
     }
 
     return(
@@ -54,7 +54,7 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
                          className={'answer ' + (attemptedAnswer[index] ? 'tried' : 'not-tried') + " " + (quiz.correct_answer === answer ? 'correct' : 'incorrect')}>
                         
                             <input id={`${index}`} type="radio" name="answers" value={answer} onChange={() => handleGuess(answer, index)}/>
-                            <label htmlFor="answer">{answer}</label>
+                            <label htmlFor="answer">{specialCharacters(answer)}</label>
                         </div>
                     ))}
                 </form>

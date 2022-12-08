@@ -23,7 +23,7 @@ export default function FinalScreen(props){
         <div className="final-Screen">
             <div className="final-card">
                 <h2>Congratulations!</h2>
-                <p className="final-score">You scored: {scoreContext.score} / 10</p>
+                <p className="final-score">You scored: {scoreContext.score} / 9</p>
                 <button className="reset" onClick={handleClick}>Play again?</button>
             </div>
         </div>
