@@ -1,5 +1,5 @@
 import React, {useState, useMemo, useContext} from "react";
-import ReactCSSTransitionGroup from 'react-transition-group';
+// import ReactCSSTransitionGroup from 'react-transition-group';
 import ScoreContext from "../scoreContex";
 
 export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreChange}){
