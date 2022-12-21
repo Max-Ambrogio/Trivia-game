@@ -24,6 +24,7 @@ export default function TriviaQuestion({quiz, handleSubmit, onChange, onScoreCha
 
     const isNotCorrect = () => {
         console.log('red')
+        
     };
 
     const handleGuess = (userAnswer, index) => {

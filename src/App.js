@@ -21,7 +21,7 @@ function App() {
     <BrowserRouter>
       <ScoreProvider value={value}>      
         <div className='app'>
-            <h1>Trivia Quiz</h1>
+            <h1>Trivia Game</h1>
             <div className='options'>          
                 <Routes>
                   <Route path='/' element={<Search />} />
